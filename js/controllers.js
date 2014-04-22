@@ -3,7 +3,7 @@ angular.module('starter.controllers', [])
 .controller('MapCtrl', function($scope, $state, $ionicLoading, Cafes) {
   function initialize() {
     var mapOptions = {
-      center: new google.maps.LatLng(1.3000,103.8000),
+      center: new google.maps.LatLng(1.3241717, 103.843130500000030000),
       zoom: 12,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
