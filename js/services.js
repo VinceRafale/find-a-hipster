@@ -1098,7 +1098,27 @@ angular.module('starter.services', [])
           remoteCafes = tabletop.sheets('Hip').elements;
           deferred.resolve();
         },
-        simpleSheet: false
+        simpleSheet: false,
+        postProcess: function(elem) {
+          elem['addressLine1']  = elem['addressline1'];
+          elem['addressLine2']  = elem['addressline2'];
+          
+          var cleanupBooleanFor = function(str) {
+            if (str == 'TRUE') {
+              return true;
+            } else if (str == 'FALSE') {
+              return false;
+            };
+          };
+
+          elem['hasAlcohol']    = cleanupBooleanFor(elem['hasalcohol']);
+          elem['hasCakes']      = cleanupBooleanFor(elem['hascakes']);
+          elem['hasCoffee']     = cleanupBooleanFor(elem['hascoffee']);
+          elem['hasIceCream']   = cleanupBooleanFor(elem['hasicecream']);
+          elem['hasMainCourse'] = cleanupBooleanFor(elem['hasmaincourse']);
+          elem['hasPowerpoint'] = cleanupBooleanFor(elem['haspowerpoint']);
+          elem['hasWifi']       = cleanupBooleanFor(elem['haswifi']);
+        }
       });
 
       return deferred.promise;
