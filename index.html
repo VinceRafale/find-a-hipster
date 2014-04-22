@@ -55,5 +55,134 @@
       ga('send', 'pageview');
 
     </script>
+
+    <script type="text/ng-template" id="templates/tabs.html">
+    <ion-tabs class="tabs-icon-top">
+      <!-- Maps Tab -->
+      <ion-tab title="Map" icon="icon ion-map" href="#/tab/map">
+        <ion-nav-view name="tab-map"></ion-nav-view>
+      </ion-tab>
+      <!-- Cafes Tab -->
+      <ion-tab title="Cafes" icon="icon ion-coffee" href="#/tab/cafes">
+        <ion-nav-view name="tab-cafes"></ion-nav-view>
+      </ion-tab>
+      <!-- About Tab -->
+      <ion-tab title="About" icon="icon ion-help" href="#/tab/about">
+        <ion-nav-view name="tab-about"></ion-nav-view>
+      </ion-tab>
+    </ion-tabs>
+    </script>
+     
+    <script type="text/ng-template" id="templates/tab-map.html">
+    <ion-header-bar
+      title="Map"
+      type="bar-positive"
+      align-title="center">
+      <button class="button button-clear button-positive icon-left ion-ios7-navigate" ng-click="centerOnMe();">Locate Myself</button>
+    </ion-header-bar>
+
+    <ion-content has-header="true" has-tabs="true">
+        <div id="map-canvas" style="width: 100%; height: 100%"></div>
+    </ion-content>
+    </script>
+     
+    <script type="text/ng-template" id="templates/tab-cafes.html">
+    <ion-view title="Cafes">
+      <ion-content class="has-header">
+        <ion-list>
+          <ion-item ng-repeat="cafe in cafes" type="item-text-wrap" href="#/tab/cafe/{{cafe.rowNumber}}">
+            <h2>{{cafe.name}}</h2>
+            <p>{{cafe.addressLine1}}</p>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-view>
+    </script>
+     
+    <script type="text/ng-template" id="templates/tab-about.html">
+    <ion-view title="About">
+      <ion-content class="has-header padding">
+        <div class="card">
+          <div class="item item-divider">
+            That is not hipster!
+          </div>
+          <div class="item item-text-wrap">
+            Disagree or got a new hipster hangout to add? Feedback via <a href="https://twitter.com/_yctay">Twitter</a> or this <a href="
+    https://docs.google.com/spreadsheet/ccc?key=0AsNz63BMymZodFBtZUxKYkZQcFdabGFpNHNVcXdGYkE&hl=en#gid=0">Google Spreadsheet</a>.
+          </div>
+        </div>
+        <div class="card">
+          <div class="item item-divider">
+            What?
+          </div>
+          <div class="item item-text-wrap">
+            Crafted furiously in under a few hours.
+            <br>
+            Any issues, please tweet or DM me at <a href="https://twitter.com/_yctay">@_yctay</a>.
+          </div>
+        </div>
+      </ion-content>
+    </ion-view>
+    </script>
+     
+    <script type="text/ng-template" id="templates/cafe-detail.html">
+    <ion-view title="{{cafe.name}}">
+      <ion-content has-header="true">
+        <div class="row" style="padding:0;">
+          <div id="detail-map-canvas" style="width:100%;height:200px;"></div>
+        </div>
+
+        <h3 style="text-align:center;">{{cafe.name}}</h3>
+
+        <!-- Opening Hours -->
+        <div class="card" ng-show="cafe.openingHours">
+          <div class="item item-divider">
+            Opening Hours
+          </div>
+          <div class="item item-text-wrap">
+            <p ng-repeat="oh in cafe.openingHours">{{oh}}</p>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="card" ng-show="cafe.addressLine1">
+          <div class="item item-divider">
+            Address
+          </div>
+          <div class="item item-text-wrap">
+            <p>{{cafe.addressLine1}}</p>
+            <p>{{cafe.addressLine2}}</p>
+            <p>{{cafe.city}}</p>
+            <p ng-if="cafe.telephone.length > 7">
+              <a class="button button-clear button-positive icon-left ion-ios7-telephone" href="tel:+65{{cafe.telephone}}">
+                {{cafe.telephone}}
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Amenities -->
+        <div class="card" ng-if="cafe.hasCoffee">
+          <div class="item item-divider">
+            Amenities
+          </div>
+          <div class="item item-text-wrap">
+            <div class="row">
+              <div class="col" ng-class="highlightIf(cafe.hasCoffee)"><i class="icon ion-coffee"></i> Coffee</div>
+              <div class="col" ng-class="highlightIf(cafe.hasAlcohol)"><i class="icon ion-ios7-wineglass"></i> Alcohol</div>
+            </div>
+            <div class="row">
+              <div class="col" ng-class="highlightIf(cafe.hasWifi)"><i class="icon ion-wifi"></i> Wifi</div>
+              <div class="col" ng-class="highlightIf(cafe.hasPowerpoint)"><i class="icon ion-ios7-bolt"></i> Powerpoint</div>
+            </div>
+            <div class="row">
+              <div class="col" ng-class="highlightIf(cafe.hasMainCourse)"><i class="icon ion-fork"></i> Food</div>
+              <div class="col" ng-class="highlightIf(cafe.hasIceCream)"><i class="icon ion-icecream"></i> Ice Cream</div>
+            </div>
+          </div>
+        </div>
+      </ion-content>
+    </ion-view>
+    </script>
   </body>
 </html>
