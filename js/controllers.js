@@ -71,14 +71,14 @@ angular.module('starter.controllers', [])
   };
 
   /* Get cafes from remote */
-  if (Cafes.remoteAll().length < 1) {
+  if (Cafes.all().length < 1) {
     Loader.show($rootScope.globalLoaderMessage);
     Cafes.refreshFromRemote().then(function(success) {
-      createMarkers(Cafes.remoteAll());
+      createMarkers(Cafes.all());
       Loader.hide();
     });
   } else {
-    createMarkers(Cafes.remoteAll());
+    createMarkers(Cafes.all());
     Loader.hide();
   };
 
@@ -87,14 +87,14 @@ angular.module('starter.controllers', [])
 .controller('CafesCtrl', function($scope, $rootScope, Loader, Cafes) {
 
   /* Get cafes from remote */
-  if (Cafes.remoteAll().length < 1) {
+  if (Cafes.all().length < 1) {
     Loader.show($rootScope.globalLoaderMessage);
     Cafes.refreshFromRemote().then(function(success) {
-      $scope.cafes = Cafes.remoteAll();
+      $scope.cafes = Cafes.all();
       Loader.hide();
     });
   } else {
-    $scope.cafes = Cafes.remoteAll();
+    $scope.cafes = Cafes.all();
   };
 
 })
@@ -129,7 +129,7 @@ angular.module('starter.controllers', [])
 
   Loader.show($rootScope.globalLoaderMessage);
   var found = false;
-  angular.forEach(Cafes.remoteAll(), function(v, k) {
+  angular.forEach(Cafes.all(), function(v, k) {
     if (v.rowNumber == $stateParams.cafeId) {
       found = true;
       $scope.cafe = v;
@@ -140,7 +140,7 @@ angular.module('starter.controllers', [])
   /* If no cafe found, commence remote search */
   if (found != true) {
     Cafes.refreshFromRemote().then(function(success) {
-      angular.forEach(Cafes.remoteAll(), function(v, k) {
+      angular.forEach(Cafes.all(), function(v, k) {
         if (v.rowNumber == $stateParams.cafeId) {
           $scope.cafe = v;
           execNormally();

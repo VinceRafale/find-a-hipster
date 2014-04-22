@@ -24,13 +24,9 @@ angular.module('starter.services', [])
 
 })
 
-/**
- * A simple example service that returns some data.
- */
 .factory('Cafes', function($q) {
-  // Might use a resource here that returns a JSON array
 
-  var remoteCafes = [];
+  var cafes = [];
 
   return {
     refreshFromRemote: function() {
@@ -40,7 +36,7 @@ angular.module('starter.services', [])
       Tabletop.init({
         key: cafesUrl,
         callback: function(data, tabletop) {
-          remoteCafes = tabletop.sheets('Hip').elements;
+          cafes = tabletop.sheets('Hip').elements;
           deferred.resolve();
         },
         simpleSheet: false,
@@ -68,8 +64,8 @@ angular.module('starter.services', [])
 
       return deferred.promise;
     },
-    remoteAll: function() {
-      return remoteCafes;
+    all: function() {
+      return cafes;
     }
 
   }
