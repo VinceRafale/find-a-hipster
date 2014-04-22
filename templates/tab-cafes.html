@@ -1,7 +1,7 @@
 <ion-view title="Cafes">
   <ion-content class="has-header">
     <ion-list>
-      <ion-item ng-repeat="cafe in cafes" type="item-text-wrap" href="#/tab/cafe/{{cafe.id}}">
+      <ion-item ng-repeat="cafe in cafes" type="item-text-wrap" href="#/tab/cafe/{{cafe.rowNumber}}">
         <h2>{{cafe.name}}</h2>
         <p>{{cafe.addressLine1}}</p>
       </ion-item>

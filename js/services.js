@@ -27,7 +27,7 @@ angular.module('starter.services', [])
 /**
  * A simple example service that returns some data.
  */
-.factory('Cafes', function() {
+.factory('Cafes', function($q) {
   // Might use a resource here that returns a JSON array
 
   var cafes = [
@@ -1078,6 +1078,8 @@ angular.module('starter.services', [])
     cafes[k]['id'] = k;
   });
 
+  var remoteCafes = [];
+
   return {
     all: function() {
       return cafes;
@@ -1085,6 +1087,25 @@ angular.module('starter.services', [])
     get: function(cafeId) {
       // Simple index lookup
       return cafes[cafeId];
+    },
+    refreshFromRemote: function() {
+      var deferred = $q.defer();
+
+      var cafesUrl = 'https://docs.google.com/spreadsheet/pub?hl=en&hl=en&key=0AsNz63BMymZodFBtZUxKYkZQcFdabGFpNHNVcXdGYkE&gid=0&output=html';
+      Tabletop.init({
+        key: cafesUrl,
+        callback: function(data, tabletop) {
+          remoteCafes = tabletop.sheets('Hip').elements;
+          deferred.resolve();
+        },
+        simpleSheet: false
+      });
+
+      return deferred.promise;
+    },
+    remoteAll: function() {
+      return remoteCafes;
     }
+
   }
 });

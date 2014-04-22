@@ -75,5 +75,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/map');
 
+})
+
+.run(function($rootScope) {
+  $rootScope.globalLoaderMessage = 'Getting where them hipsters at...';
 });
 
