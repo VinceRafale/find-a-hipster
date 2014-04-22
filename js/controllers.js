@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('MapCtrl', function($scope, $state, $ionicLoading, Cafes) {
+.controller('MapCtrl', function($scope, $state, Loader, Cafes) {
   function initialize() {
     var mapOptions = {
       center: new google.maps.LatLng(1.3241717, 103.843130500000030000),
@@ -47,16 +47,25 @@ angular.module('starter.controllers', [])
       return;
     }
 
-    $scope.loading = $ionicLoading.show({
-      content: 'Getting current location...',
-      showBackdrop: false
-    });
+    Loader.show('Getting current location...');
 
     navigator.geolocation.getCurrentPosition(function(pos) {
-      $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-      $scope.loading.hide();
+      var userLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+      $scope.map.setCenter(userLatLng);
+      var circle = new google.maps.Circle({
+        center: userLatLng,
+        radius: pos.coords.accuracy,
+        map: $scope.map,
+        fillColor: '#4B83F3',
+        fillOpacity: 0.3,
+        strokeColor: '#4B83F3',
+        strokeOpacity: 0.8
+      });
+      $scope.map.fitBounds(circle.getBounds());
+      Loader.hide();
     }, function(error) {
       alert('Unable to get location: ' + error.message);
+      Loader.hide();
     });
   };
 

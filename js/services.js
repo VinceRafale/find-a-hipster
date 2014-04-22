@@ -1,5 +1,29 @@
 angular.module('starter.services', [])
 
+.factory('Loader', function($rootScope, $ionicLoading) {
+
+  return {
+    show : function(message) { //code from the ionic framework doc
+      // Show the loading overlay and text
+      $rootScope.loading = $ionicLoading.show({
+
+        // The text to display in the loading indicator
+        content: message,
+
+        // The animation to use
+        // animation: 'fade-in',
+
+        // Will a dark overlay or backdrop cover the entire view
+        showBackdrop: false
+      });
+    },
+    hide : function(){
+      $rootScope.loading.hide();
+    }
+  }
+
+})
+
 /**
  * A simple example service that returns some data.
  */
