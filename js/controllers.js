@@ -31,7 +31,7 @@ angular.module('starter.controllers', [])
     marker.content = '<div class="infoWindowContent">' + cafe.name + '</div>';
     
     google.maps.event.addListener(marker, 'click', function(){
-      $state.go('tab.cafe-detail', {cafeId: cafe.id})
+      $state.go('tab.cafe-detail', {cafeId: cafe.rowNumber})
     });
     
     $scope.markers.push(marker);
