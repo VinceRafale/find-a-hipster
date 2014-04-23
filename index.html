@@ -90,7 +90,10 @@
     <ion-view title="Cafes">
       <ion-content class="has-header">
         <ion-list>
-          <ion-item ng-repeat="cafe in cafes" type="item-text-wrap" href="#/tab/cafe/{{cafe.rowNumber}}">
+          <label class="item item-input">
+            <input type="text" placeholder="Search for café..." ng-model="search.$">
+          </label>
+          <ion-item ng-repeat="cafe in cafes | filter:search" type="item-text-wrap" href="#/tab/cafe/{{cafe.rowNumber}}">
             <h2>{{cafe.name}}</h2>
             <p>{{cafe.addressLine1}}</p>
           </ion-item>
