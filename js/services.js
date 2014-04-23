@@ -45,9 +45,9 @@ angular.module('starter.services', [])
           elem['addressLine2']  = elem['addressline2'];
           
           var cleanupBooleanFor = function(str) {
-            if (str == 'TRUE') {
+            if ((str == 'TRUE') || (str == 'YES')) {
               return true;
-            } else if (str == 'FALSE') {
+            } else {
               return false;
             };
           };
